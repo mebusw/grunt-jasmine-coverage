@@ -66,15 +66,15 @@ function task(grunt){
     grunt.config.requires('jasmine.coverage');
     var config = grunt.config('jasmine');
 
-    var filesToInstrument = config.src.map(function(file) {
-      if (grunt.file.isMatch(config.coverage.excludes, file)) {
+    var filesToInstrument = grunt.file.expand(config.src).map(function(file) {
+      if (config.coverage.excludes && grunt.file.isMatch(config.coverage.excludes, file)) {
         return '';
       } else {
         return file;
       }
     });
-    var filesNotToInstrument = config.src.map(function(file) {
-      if (grunt.file.isMatch(config.coverage.excludes, file)) {
+    var filesNotToInstrument = grunt.file.expand(config.src).map(function(file) {
+      if (config.coverage.excludes && grunt.file.isMatch(config.coverage.excludes, file)) {
         return file;
       } else {
         return '';
